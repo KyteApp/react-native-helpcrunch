@@ -1,0 +1,37 @@
+{
+  "name": "react-native-helpcrunch",
+  "title": "ReactNative HelpCrunch",
+  "version": "0.1.0",
+  "description": "ReactNative Wrapper for HelpCrunch SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyteApp/react-native-helpcrunch.git",
+    "baseUrl": "https://github.com/KyteApp/react-native-helpcrunch"
+  },
+  "keywords": [
+    "react-native",
+    "helpcrunch",
+    "react native",
+    "react-native-helpcrunch",
+    "react native helpcrunch",
+    "kyte"
+  ],
+  "author": {
+    "name": "Ítalo Menezes",
+    "email": "italo@kyte.com.br"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.59.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "react": "^16.8.3",
+    "react-native": "^0.59.10"
+  }
+}
