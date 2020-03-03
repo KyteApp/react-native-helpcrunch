@@ -1,5 +1,6 @@
 package com.kyteapp.ReactNativeHelpCrunch;
 
+import android.app.Activity;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -139,11 +140,22 @@ public class RNHelpCrunchModule extends ReactContextBaseJavaModule {
         }
 
         HCOptions options = optionsBuilder.build();
-        HelpCrunch.showChatScreen(this.getCurrentActivity(), options);
+        Activity currentActivity = this.getCurrentActivity();
+        if (currentActivity == null) {
+            return;
+        }
+
+        HelpCrunch.showChatScreen(currentActivity, options);
     }
 
     @ReactMethod
     public void setThemeConfiguration(Promise promise) {
+        Activity currentActivity = this.getCurrentActivity();
+        if (currentActivity == null) {
+            promise.reject("RNActivityNotFound", "RN Activity wasn't found. :(");
+            return;
+        }
+
         PackageManager packageManager = this.getCurrentActivity().getPackageManager();
         Resources resources = null;
         try {
