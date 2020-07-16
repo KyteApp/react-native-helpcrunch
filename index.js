@@ -10,14 +10,14 @@ export default class HelpCrunch {
     this.FileURLNotification = 'HCSFileURLNotification';
     this.UserStartedChatNotification = 'HCSUserStartedChatNotification';
     this.UserClosedChatNotification = 'HCSUserClosedChatNotification';
-    this.UnreadMessagesNotification = 'HCSUnreadMessagesNotification';
+    this.UnreadChatsNotification = 'HCSUnreadChatsNotification';
     this.eventEmitterObject = {
       'HCSURLNotification': null,
       'HCSImageURLNotification': null,
       'HCSFileURLNotification': null,
       'HCSUserStartedChatNotification': null,
       'HCSUserClosedChatNotification': null,
-      'HCSUnreadMessagesNotification': null,
+      'HCSUnreadChatsNotification': null,
     };
   }
 
@@ -78,7 +78,7 @@ export default class HelpCrunch {
     }
   }
 
-  static getNumberOfUnreadMessages() {
-    return RNHelpCrunch.getNumberOfUnreadMessages();
+  static getNumberOfUnreadChats() {
+    return RNHelpCrunch.getNumberOfUnreadChats();
   }
 }

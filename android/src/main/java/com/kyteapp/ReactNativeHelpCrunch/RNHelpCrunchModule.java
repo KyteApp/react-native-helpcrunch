@@ -17,17 +17,17 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
-import com.helpcrunch.library.core.repository.models.user.HCUser;
-import com.helpcrunch.library.options.HCOptions;
-import com.helpcrunch.library.options.HCPreChatForm;
-import com.helpcrunch.library.options.design.HCAvatarTheme;
-import com.helpcrunch.library.options.design.HCChatAreaTheme;
-import com.helpcrunch.library.options.design.HCNotificationsTheme;
-import com.helpcrunch.library.options.design.HCPreChatTheme;
-import com.helpcrunch.library.options.design.HCSystemAlertsTheme;
-import com.helpcrunch.library.options.design.HCTheme;
-import com.helpcrunch.library.options.design.HCToolbarAreaTheme;
-import com.helpcrunch.library.options.design.HCMessageAreaTheme;
+import com.helpcrunch.library.core.models.user.HCUser;
+import com.helpcrunch.library.core.options.HCOptions;
+import com.helpcrunch.library.core.options.HCPreChatForm;
+import com.helpcrunch.library.core.options.design.HCAvatarTheme;
+import com.helpcrunch.library.core.options.design.HCChatAreaTheme;
+import com.helpcrunch.library.core.options.design.HCNotificationsTheme;
+import com.helpcrunch.library.core.options.design.HCPreChatTheme;
+import com.helpcrunch.library.core.options.design.HCSystemAlertsTheme;
+import com.helpcrunch.library.core.options.design.HCTheme;
+import com.helpcrunch.library.core.options.design.HCToolbarAreaTheme;
+import com.helpcrunch.library.core.options.design.HCMessageAreaTheme;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -84,6 +84,19 @@ public class RNHelpCrunchModule extends ReactContextBaseJavaModule {
             this.preChatBuilder = preChatForm;
             optionsBuilder.setPreChatForm(preChatForm.build());
         }
+
+        HelpCrunch.initialize(organization, Integer.parseInt(applicationId), applicationSecret, null, optionsBuilder.build(), new Callback<Object>() {
+            @Override
+            public void onSuccess(Object result) {
+                promise.resolve(null);
+            }
+
+            @Override
+            public void onError(@NotNull String message) {
+                promise.reject("InitializeError", message);
+            }
+        });
+
         promise.resolve(null);
     }
 
@@ -145,7 +158,7 @@ public class RNHelpCrunchModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        HelpCrunch.showChatScreen(currentActivity, options);
+        HelpCrunch.showChatScreen(options);
     }
 
     @ReactMethod

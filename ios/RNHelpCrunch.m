@@ -74,28 +74,28 @@ RCT_EXPORT_METHOD(showChat:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
 
 RCT_EXPORT_METHOD(setThemeConfiguration:(NSDictionary *)themeConfiguration)
 {
-    RCTExecuteOnMainQueue(^{
-        HCSTheme *theme = [HelpCrunch defaultTheme];
-        if (themeConfiguration[@"colorConfig"] != nil) {
-            for (NSString* themeKey in themeConfiguration[@"colorConfig"]) {
-                NSDictionary *eachColorConfig = [RCTConvert NSDictionary:themeConfiguration[@"colorConfig"][themeKey]];
-                for (NSString* key in eachColorConfig) {
-                    [theme setValue:[self colorFromHexString:[RCTConvert NSString:eachColorConfig[key]]] forKey:key];
-                }
+    HCSTheme *theme = [HelpCrunch lightTheme];
+    if (themeConfiguration[@"themeConfig"] != nil) {
+        for (NSString* themeKey in themeConfiguration[@"themeConfig"]) {
+            if ([themeKey isEqualToString:@"preChatThemeConfig"]) {
+                theme.prechatForm = [self setPreChatTheme:themeConfiguration[@"themeConfig"][themeKey]];
             }
-        }
 
-        if (themeConfiguration[@"otherConfig"] != nil) {
-            for (NSString* otherKey in themeConfiguration[@"otherConfig"]) {
-                if ([themeConfiguration[@"otherConfig"][otherKey] isKindOfClass:[NSString class]]) {
-                    [theme setValue:[RCTConvert NSString:themeConfiguration[@"otherConfig"][otherKey]] forKey:otherKey];
-                } else {
-                    [theme setValue:themeConfiguration[@"otherConfig"][otherKey] forKey:otherKey]; // boolean types only?
-                }
+            if ([themeKey isEqualToString:@"chatThemeConfig"]) {
+                theme.chatArea = [self setChatTheme:themeConfiguration[@"themeConfig"][themeKey]];
+            }
+
+            if ([themeKey isEqualToString:@"navigationBarThemeConfig"]) {
+                theme.navigationBar = [self setNavigationBarTheme:themeConfiguration[@"themeConfig"][themeKey]];
+            }
+
+            if ([themeKey isEqualToString:@"sendMessageThemeConfig"]) {
+                theme.sendMessageArea = [self setSendMessageAreaTheme:themeConfiguration[@"themeConfig"][themeKey]];
             }
         }
-        [HelpCrunch bindTheme:theme];
-    });
+    }
+
+    [HelpCrunch bindTheme:theme];
 }
 
 RCT_EXPORT_METHOD(trackEvent:(NSString *)eventName params:(NSDictionary *)eventParams)
@@ -110,15 +110,63 @@ RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
     }];
 }
 
-RCT_EXPORT_METHOD(getNumberOfUnreadMessages:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getNumberOfUnreadChats:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    resolve(@{ @"numberOfUnreadMessages": [NSString stringWithFormat:@"%lu", (unsigned long)[HelpCrunch numberOfUnreadMessages]] });
+    resolve(@{ @"numberOfUnreadChats": [NSString stringWithFormat:@"%lu", (unsigned long)[HelpCrunch numberOfUnreadChats]] });
+}
+
+- (HCSThemePrechatForm *) setPreChatTheme:(NSDictionary *)themeProperties {
+    HCSThemePrechatForm *prechatTheme = [[HCSThemePrechatForm alloc] init];
+    for (NSString* configKey in themeProperties) {
+        if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
+            [prechatTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
+        } else {
+            [prechatTheme setValue:themeProperties[configKey] forKey:configKey];
+        }
+    }
+    return prechatTheme;
+}
+
+- (HCSThemeChatArea *) setChatTheme:(NSDictionary *)themeProperties {
+    HCSThemeChatArea *chatTheme = [[HCSThemeChatArea alloc] init];
+    for (NSString* configKey in themeProperties) {
+        if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
+            [chatTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
+        } else {
+            [chatTheme setValue:themeProperties[configKey] forKey:configKey];
+        }
+    }
+    return chatTheme;
+}
+
+- (HCSThemeNavigationBar *) setNavigationBarTheme:(NSDictionary *)themeProperties {
+    HCSThemeNavigationBar *navigationBarTheme = [[HCSThemeNavigationBar alloc] init];
+    for (NSString* configKey in themeProperties) {
+        if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
+            [navigationBarTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
+        } else {
+            [navigationBarTheme setValue:themeProperties[configKey] forKey:configKey];
+        }
+    }
+    return navigationBarTheme;
+}
+
+- (HCSThemeSendMessageArea *) setSendMessageAreaTheme:(NSDictionary *)themeProperties {
+    HCSThemeSendMessageArea *sendMessageAreaTheme = [[HCSThemeSendMessageArea alloc] init];
+    for (NSString* configKey in themeProperties) {
+        if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
+            [sendMessageAreaTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
+        } else {
+            [sendMessageAreaTheme setValue:themeProperties[configKey] forKey:configKey];
+        }
+    }
+    return sendMessageAreaTheme;
 }
 
 - (UIColor *)colorFromHexString:(NSString *)hexString {
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
+    [scanner setScanLocation:1];
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }

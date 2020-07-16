@@ -15,7 +15,7 @@
       @"HCSFileURLNotification",
       @"HCSUserStartedChatNotification",
       @"HCSUserClosedChatNotification",
-      @"HCSUnreadMessagesNotification"
+      @"HCSUnreadChatsNotification"
   ];
 }
 - (void)startObserving {
