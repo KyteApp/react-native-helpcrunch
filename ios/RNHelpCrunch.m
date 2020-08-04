@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(getNumberOfUnreadChats:(RCTPromiseResolveBlock)resolve rejecte
 }
 
 - (HCSThemePrechatForm *) setPreChatTheme:(NSDictionary *)themeProperties {
-    HCSThemePrechatForm *prechatTheme = [[HCSThemePrechatForm alloc] init];
+    HCSThemePrechatForm *prechatTheme = [HelpCrunch lightTheme].prechatForm;
     for (NSString* configKey in themeProperties) {
         if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
             [prechatTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
@@ -128,7 +128,7 @@ RCT_EXPORT_METHOD(getNumberOfUnreadChats:(RCTPromiseResolveBlock)resolve rejecte
 }
 
 - (HCSThemeChatArea *) setChatTheme:(NSDictionary *)themeProperties {
-    HCSThemeChatArea *chatTheme = [[HCSThemeChatArea alloc] init];
+    HCSThemeChatArea *chatTheme = [HelpCrunch lightTheme].chatArea;
     for (NSString* configKey in themeProperties) {
         if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
             [chatTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
@@ -140,7 +140,7 @@ RCT_EXPORT_METHOD(getNumberOfUnreadChats:(RCTPromiseResolveBlock)resolve rejecte
 }
 
 - (HCSThemeNavigationBar *) setNavigationBarTheme:(NSDictionary *)themeProperties {
-    HCSThemeNavigationBar *navigationBarTheme = [[HCSThemeNavigationBar alloc] init];
+    HCSThemeNavigationBar *navigationBarTheme = [HelpCrunch lightTheme].navigationBar;
     for (NSString* configKey in themeProperties) {
         if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
             [navigationBarTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
@@ -152,7 +152,7 @@ RCT_EXPORT_METHOD(getNumberOfUnreadChats:(RCTPromiseResolveBlock)resolve rejecte
 }
 
 - (HCSThemeSendMessageArea *) setSendMessageAreaTheme:(NSDictionary *)themeProperties {
-    HCSThemeSendMessageArea *sendMessageAreaTheme = [[HCSThemeSendMessageArea alloc] init];
+    HCSThemeSendMessageArea *sendMessageAreaTheme = [HelpCrunch lightTheme].sendMessageArea;
     for (NSString* configKey in themeProperties) {
         if ([themeProperties[configKey] isKindOfClass:[NSString class]] && [themeProperties[configKey] hasPrefix:@"#"]) { // this is supposed to be a color
             [sendMessageAreaTheme setValue:[self colorFromHexString:[RCTConvert NSString:themeProperties[configKey]]] forKey:configKey];
