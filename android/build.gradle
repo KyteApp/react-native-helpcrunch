@@ -58,7 +58,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.helpcrunch:chat-sdk:3.0.0-beta.06'
+    implementation 'com.helpcrunch:chat-sdk:3.0.1'
 }
 
 def configureReactNativePom(def pom) {
