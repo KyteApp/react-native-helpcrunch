@@ -336,6 +336,7 @@ public class RNHelpCrunchModule extends ReactContextBaseJavaModule {
         systemAlertsThemeList.put("helpCrunchSystemAlertsWelcomeScreenBackgroundColor", resources.getIdentifier("helpCrunchSystemAlertsWelcomeScreenBackgroundColor", "color", this.hostAppPackageName));
         systemAlertsThemeList.put("helpCrunchSystemAlertsWelcomeScreenTextColor", resources.getIdentifier("helpCrunchSystemAlertsWelcomeScreenTextColor", "color", this.hostAppPackageName));
         systemAlertsThemeList.put("helpCrunchSystemAlertsWarningDialogsHeaderColor", resources.getIdentifier("helpCrunchSystemAlertsWarningDialogsHeaderColor", "color", this.hostAppPackageName));
+        systemAlertsThemeList.put("helpCrunchSystemAlertsDialogMessageTextColor", resources.getIdentifier("helpCrunchSystemAlertsDialogMessageTextColor", "color", this.hostAppPackageName));
 
         HCSystemAlertsTheme.Builder systemAlertsThemeBuilder = new HCSystemAlertsTheme.Builder();
         for (Object o : systemAlertsThemeList.entrySet()) {
@@ -347,6 +348,7 @@ public class RNHelpCrunchModule extends ReactContextBaseJavaModule {
                     case "helpCrunchSystemAlertsWelcomeScreenBackgroundColor": systemAlertsThemeBuilder.setWelcomeMessageBackgroundColor((Integer) systemAlertsThemeEntry.getValue()); break;
                     case "helpCrunchSystemAlertsWelcomeScreenTextColor": systemAlertsThemeBuilder.setWelcomeMessageTextColor((Integer) systemAlertsThemeEntry.getValue()); break;
                     case "helpCrunchSystemAlertsWarningDialogsHeaderColor": systemAlertsThemeBuilder.setWarningDialogsHeaderColor((Integer) systemAlertsThemeEntry.getValue()); break;
+                    case "helpCrunchSystemAlertsDialogMessageTextColor": systemAlertsThemeBuilder.setDialogMessageTextColor((Integer) systemAlertsThemeEntry.getValue()); break;
                 }
             }
         }
