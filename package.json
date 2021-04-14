@@ -1,7 +1,7 @@
 {
   "name": "react-native-helpcrunch",
   "title": "ReactNative HelpCrunch",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "ReactNative Wrapper for HelpCrunch SDK",
   "main": "index.js",
   "scripts": {
