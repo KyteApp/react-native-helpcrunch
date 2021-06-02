@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "HelpCrunchSDK", "3.2.4"
+  s.dependency "HelpCrunchSDK", "~> 3.3.2"
 end
 
